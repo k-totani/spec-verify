@@ -1,9 +1,12 @@
-# spec-verify
+# gh-spec-verify
 
 SPEC駆動開発のための検証ツール。仕様書（SPEC）と実際のコードが一致しているかをAIで検証します。
 
+**GitHub CLI Extension** として使用できます。
+
 ## 特徴
 
+- **GitHub CLI統合**: `gh spec-verify` コマンドで実行可能
 - **言語非依存**: どのプログラミング言語のプロジェクトでも使用可能
 - **AI検証**: Claude APIを使用して仕様書とコードの一致度を判定
 - **CI対応**: JSON出力でCI/CDパイプラインに組み込み可能
@@ -11,18 +14,24 @@ SPEC駆動開発のための検証ツール。仕様書（SPEC）と実際のコ
 
 ## インストール
 
+### GitHub CLI Extension（推奨）
+
+```bash
+gh extension install k-totani/gh-spec-verify
+```
+
 ### Go Install
 
 ```bash
-go install github.com/k-totani/spec-verify/cmd/spec-verify@latest
+go install github.com/k-totani/gh-spec-verify/cmd/gh-spec-verify@latest
 ```
 
 ### ソースからビルド
 
 ```bash
-git clone https://github.com/k-totani/spec-verify.git
-cd spec-verify
-go build -o spec-verify ./cmd/spec-verify
+git clone https://github.com/k-totani/gh-spec-verify.git
+cd gh-spec-verify
+go build -o gh-spec-verify ./cmd/gh-spec-verify
 ```
 
 ## クイックスタート
@@ -30,7 +39,7 @@ go build -o spec-verify ./cmd/spec-verify
 ### 1. 初期設定
 
 ```bash
-spec-verify init
+gh spec-verify init
 ```
 
 これにより `.specverify.yml` が作成されます。
@@ -54,7 +63,7 @@ specs/
 ### 4. 検証を実行
 
 ```bash
-spec-verify check
+gh spec-verify check
 ```
 
 ## 使い方
@@ -62,26 +71,26 @@ spec-verify check
 ### 全てのSPECを検証
 
 ```bash
-spec-verify check
+gh spec-verify check
 ```
 
 ### 特定のタイプのみ検証
 
 ```bash
-spec-verify check ui    # UIのSPECのみ
-spec-verify check api   # APIのSPECのみ
+gh spec-verify check ui    # UIのSPECのみ
+gh spec-verify check api   # APIのSPECのみ
 ```
 
 ### JSON出力（CI向け）
 
 ```bash
-spec-verify check --format json
+gh spec-verify check --format json
 ```
 
 ### 合格ラインを指定
 
 ```bash
-spec-verify check --threshold 70
+gh spec-verify check --threshold 70
 ```
 
 ## 設定ファイル
@@ -199,13 +208,13 @@ jobs:
         with:
           go-version: '1.21'
 
-      - name: Install spec-verify
-        run: go install github.com/k-totani/spec-verify/cmd/spec-verify@latest
+      - name: Install gh-spec-verify
+        run: go install github.com/k-totani/gh-spec-verify/cmd/gh-spec-verify@latest
 
       - name: Run verification
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: spec-verify check --format json > spec-verify-result.json
+        run: gh-spec-verify check --format json > spec-verify-result.json
 
       - name: Upload results
         uses: actions/upload-artifact@v4

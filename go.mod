@@ -1,4 +1,4 @@
-module github.com/k-totani/spec-verify
+module github.com/k-totani/gh-spec-verify
 
 go 1.25.5
 

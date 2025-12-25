@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/k-totani/spec-verify/internal/config"
-	"github.com/k-totani/spec-verify/internal/verifier"
+	"github.com/k-totani/gh-spec-verify/internal/config"
+	"github.com/k-totani/gh-spec-verify/internal/verifier"
 )
 
 const version = "0.1.0"
@@ -27,7 +27,7 @@ func main() {
 	case "check", "verify":
 		runCheck(os.Args[2:])
 	case "version", "-v", "--version":
-		fmt.Printf("spec-verify version %s\n", version)
+		fmt.Printf("gh-spec-verify version %s\n", version)
 	case "help", "-h", "--help":
 		printUsage()
 	default:
@@ -37,10 +37,10 @@ func main() {
 }
 
 func printUsage() {
-	fmt.Println(`spec-verify - SPEC駆動開発のための検証ツール
+	fmt.Println(`gh-spec-verify - SPEC駆動開発のための検証ツール (GitHub CLI Extension)
 
 Usage:
-  spec-verify <command> [options]
+  gh spec-verify <command> [options]
 
 Commands:
   init          設定ファイルを初期化
@@ -61,11 +61,11 @@ Environment Variables:
   SPEC_VERIFY_API_KEY  汎用APIキー
 
 Examples:
-  spec-verify init
-  spec-verify check
-  spec-verify check ui
-  spec-verify check --format json
-  spec-verify check api --threshold 70`)
+  gh spec-verify init
+  gh spec-verify check
+  gh spec-verify check ui
+  gh spec-verify check --format json
+  gh spec-verify check api --threshold 70`)
 }
 
 func runInit() {
@@ -92,7 +92,7 @@ func runInit() {
 	fmt.Println("1. 設定ファイルを編集してプロジェクトに合わせてください")
 	fmt.Println("2. ANTHROPIC_API_KEY 環境変数を設定してください")
 	fmt.Println("3. specs/ ディレクトリにSPECファイルを配置してください")
-	fmt.Println("4. spec-verify check を実行してください")
+	fmt.Println("4. gh spec-verify check を実行してください")
 }
 
 func runCheck(args []string) {
